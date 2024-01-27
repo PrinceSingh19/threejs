@@ -14,11 +14,26 @@ const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
+let boundFlag = true;
 function animate() {
-	requestAnimationFrame(animate);
+	if (cube.position.x > 5) {
+		boundFlag = false;
+	} else if (cube.position.x < -5) {
+		boundFlag = true;
+	}
+
+	if (boundFlag) {
+		cube.position.x += 0.01;
+	} else {
+		cube.position.x -= 0.01;
+	}
+
 	cube.rotation.x += 0.01;
 	cube.rotation.y += 0.01;
+	cube.rotation.z += 0.01;
 	renderer.render(scene, camera);
+
+	requestAnimationFrame(animate);
 }
 
 animate();
