@@ -8,26 +8,17 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+//const geometry = new THREE.BoxGeometry(1, 1, 1);
+//const geometry = new THREE.CapsuleGeometry(1, 1, 10, 20);
+const geometry = new THREE.DodecahedronGeometry(1, 0);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
-const cube = new THREE.Mesh(geometry, material);
+const cube = new THREE.Line(geometry, material);
 scene.add(cube);
 
-let boundFlag = true;
+let q = 0;
 function animate() {
-	if (cube.position.x > 5) {
-		boundFlag = false;
-	} else if (cube.position.x < -5) {
-		boundFlag = true;
-	}
-
-	if (boundFlag) {
-		cube.position.x += 0.01;
-	} else {
-		cube.position.x -= 0.01;
-	}
-
+	cube.position.x = 4 * Math.sin((q += 0.01));
 	cube.rotation.x += 0.01;
 	cube.rotation.y += 0.01;
 	cube.rotation.z += 0.01;
