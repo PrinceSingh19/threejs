@@ -24,7 +24,7 @@ const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
 const sphereGeometry = new THREE.SphereGeometry(1, 16, 32);
-const sphereMaterial = new THREE.MeshBasicMaterial({ color: "yellow" });
+const sphereMaterial = new THREE.MeshBasicMaterial({ color: "white" });
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
 
@@ -37,9 +37,10 @@ function animate() {
 	cube.rotation.x += 0.01;
 	cube.rotation.y += 0.01;
 	cube.rotation.z += 0.01;
-
-	sphere.position.set(30 * qCos, 0, 30 * qSin);
-	pointLight.position.set(30 * qCos, 0, 30 * qSin);
+	let scaledCos = 30 * qCos;
+	let scaledSin = 30 * qSin;
+	sphere.position.set(scaledCos, 0, scaledSin);
+	pointLight.position.set(scaledCos, 0, scaledSin);
 	renderer.render(scene, camera);
 
 	requestAnimationFrame(animate);
