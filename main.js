@@ -35,15 +35,17 @@ const geometry = new THREE.SphereGeometry(5, 32, 32);
 // const geometry = new THREE.DodecahedronGeometry(1, 0);
 
 // creating the standard material mesh to avoid having its own lumination
-const material = new THREE.MeshStandardMaterial({
-	map: texture1,
-	bumpMap: texture2,
-	bumpScale: 0.5,
+const material = new THREE.PointsMaterial({
+	// map: texture1,
+	// bumpMap: texture2,
+	// bumpScale: 0.5,
 	color: "red",
+	size: 0.1,
+
 	// normalMap: texture2,
 });
 
-const cube = new THREE.Mesh(geometry, material);
+const cube = new THREE.Points(geometry, material);
 scene.add(cube);
 
 //creating a new sphere
