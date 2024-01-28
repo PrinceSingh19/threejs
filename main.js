@@ -1,39 +1,66 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
+//creating a scene
 const scene = new THREE.Scene();
+
+//creating perspective camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000);
+
+//setting camera position distance from the object
 camera.position.z = 50;
+
+//adding the renderer
 const renderer = new THREE.WebGLRenderer();
 
+//adding the textures to the model
+const texture1 = new THREE.TextureLoader().load("brick-texture.jpg");
+const texture2 = new THREE.TextureLoader().load("brick-texture.png");
+
+//adding the ambient light
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
 
-const pointLight = new THREE.PointLight(0xffffff, 500, 1000);
-pointLight.position.set(10, 0, 3);
+//adding the point light
+const pointLight = new THREE.PointLight(0xffffff, 50, 1000);
 scene.add(pointLight);
 
+//setting the renderer size for the viewport width and height
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById("app").appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry(5, 5, 5);
+//creating the new box geometry to add the shapes
+const geometry = new THREE.SphereGeometry(5, 32, 32);
 //const geometry = new THREE.CapsuleGeometry(1, 1, 10, 20);
 // const geometry = new THREE.DodecahedronGeometry(1, 0);
-const material = new THREE.MeshStandardMaterial({ color: "red" });
+
+// creating the standard material mesh to avoid having its own lumination
+const material = new THREE.MeshStandardMaterial({
+	map: texture1,
+	bumpMap: texture2,
+	bumpScale: 0.5,
+	color: "red",
+	// normalMap: texture2,
+});
 
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
+//creating a new sphere
 const sphereGeometry = new THREE.SphereGeometry(1, 16, 32);
 const sphereMaterial = new THREE.MeshBasicMaterial({ color: "white" });
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
 
-sphere.position.set(20, 0, 10);
-pointLight.position.set(20, 0, 10);
+//setting the position of point light and sphere
+sphere.position.set(2, 0, 10);
+pointLight.position.set(2, 0, 10);
 
+//adding the orbital controls
 const controls = new OrbitControls(camera, renderer.domElement);
 let q = 0;
+
+//function to animate the  responses
 function animate() {
 	controls.update();
 	q += 0.01;
